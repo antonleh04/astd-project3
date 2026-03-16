@@ -25,7 +25,7 @@ CLASSIFIERS = {
     "ST":           lambda: ShapeletTransformClassifier(random_state=RANDOM_SEED),
     "BOSS":         lambda: BOSSEnsemble(random_state=RANDOM_SEED),
     "TSF":          lambda: TimeSeriesForestClassifier(random_state=RANDOM_SEED),
-    #"InceptionTime": lambda: InceptionTimeClassifier(random_state=RANDOM_SEED),
+    "InceptionTime": lambda: InceptionTimeClassifier(random_state=RANDOM_SEED),
     "catch22":      lambda: Catch22Classifier(random_state=RANDOM_SEED),
 }
 
