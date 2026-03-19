@@ -92,6 +92,45 @@ def run_experiments():
     return df
 
 
+def check_gpu():
+    """Check GPU availability for PyTorch and TensorFlow/Keras."""
+    print("\n--- GPU Check ---")
+
+    # PyTorch
+    try:
+        import torch
+        if torch.cuda.is_available():
+            n = torch.cuda.device_count()
+            for i in range(n):
+                print(f"  [PyTorch] GPU {i}: {torch.cuda.get_device_name(i)}")
+            # quick smoke test
+            x = torch.tensor([1.0, 2.0]).cuda()
+            print(f"  [PyTorch] smoke test passed: {x.sum().item()}")
+        else:
+            print("  [PyTorch] No CUDA GPU available")
+    except ImportError:
+        print("  [PyTorch] not installed")
+
+    # TensorFlow
+    try:
+        import tensorflow as tf
+        gpus = tf.config.list_physical_devices("GPU")
+        if gpus:
+            for g in gpus:
+                print(f"  [TensorFlow] GPU: {g.name}")
+            # quick smoke test
+            with tf.device("/GPU:0"):
+                result = tf.reduce_sum(tf.constant([1.0, 2.0])).numpy()
+            print(f"  [TensorFlow] smoke test passed: {result}")
+        else:
+            print("  [TensorFlow] No GPU available")
+    except ImportError:
+        print("  [TensorFlow] not installed")
+
+    print("-----------------\n")
+
+
 if __name__ == "__main__":
+    check_gpu()
     np.random.seed(RANDOM_SEED)
     run_experiments()
