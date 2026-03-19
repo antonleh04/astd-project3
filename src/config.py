@@ -2,7 +2,7 @@ import os
 
 from aeon.classification.convolution_based import RocketClassifier
 from aeon.classification.convolution_based import MiniRocketClassifier
-from aeon.transformations.collection.convolution_based import MultiRocketClassifier
+from aeon.classification.convolution_based import MultiRocketClassifier
 from aeon.classification.convolution_based import MultiRocketHydraClassifier
 from aeon.classification.distance_based import KNeighborsTimeSeriesClassifier
 from aeon.classification.shapelet_based import ShapeletTransformClassifier
@@ -14,13 +14,13 @@ from aeon.classification.feature_based import Catch22Classifier
 # --- Datasets ---
 DATASETS = [
     "Computers",
-    "HandOutlines"
-    "MiddlePhalanxOutlineCorrect"
-    "WormsTwoClasses"
+    "HandOutlines",
+    "MiddlePhalanxOutlineCorrect",
+    "WormsTwoClasses",
     "Worms",
     "Earthquakes",
     "EMOPain",
-    "EthanolLevel"
+    "EthanolLevel",
 ]
 
 # --- Classifiers ---
