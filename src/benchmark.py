@@ -1,5 +1,7 @@
 import time
 import warnings
+import os
+import certifi
 
 import numpy as np
 import pandas as pd
@@ -9,9 +11,11 @@ from sklearn.model_selection import StratifiedKFold
 
 from config import CLASSIFIERS, DATASETS, N_FOLDS, RANDOM_SEED, RESULTS_CSV, RESULTS_DIR
 
-import os
-
 warnings.filterwarnings("ignore")
+
+# Fix SSL certificate verification issues
+os.environ['SSL_CERT_FILE'] = certifi.where()
+os.environ['REQUESTS_CA_BUNDLE'] = certifi.where()
 
 
 def load_dataset(name):
@@ -21,6 +25,8 @@ def load_dataset(name):
     X = np.concatenate([X_train, X_test], axis=0)
     y = np.concatenate([y_train, y_test], axis=0)
     return X, y
+
+
 
 
 def run_experiments():
