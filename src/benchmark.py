@@ -23,10 +23,19 @@ def load_dataset(name):
     return X, y
 
 
+def _append_row(row, write_header):
+    """Append a single result row to the CSV file."""
+    df_row = pd.DataFrame([row])
+    df_row.to_csv(RESULTS_CSV, mode="a", header=write_header, index=False)
+
+
 def run_experiments():
     os.makedirs(RESULTS_DIR, exist_ok=True)
     results = []
     skf = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=RANDOM_SEED)
+
+    # Start fresh: write header with first row
+    write_header = True
 
     for ds_name in DATASETS:
         print(f"\n{'='*60}")
@@ -60,7 +69,7 @@ def run_experiments():
                     print(f"  [{clf_name}] fold {fold_idx+1}/{N_FOLDS}  "
                           f"acc={acc:.4f}  fit={fit_time:.1f}s  pred={predict_time:.1f}s")
 
-                    results.append({
+                    row = {
                         "dataset": ds_name,
                         "classifier": clf_name,
                         "fold": fold_idx,
@@ -70,10 +79,10 @@ def run_experiments():
                         "cohen_kappa": kappa,
                         "fit_time_s": fit_time,
                         "predict_time_s": predict_time,
-                    })
+                    }
                 except Exception as e:
                     print(f"  [{clf_name}] fold {fold_idx+1}/{N_FOLDS}  FAILED: {e}")
-                    results.append({
+                    row = {
                         "dataset": ds_name,
                         "classifier": clf_name,
                         "fold": fold_idx,
@@ -83,10 +92,13 @@ def run_experiments():
                         "cohen_kappa": np.nan,
                         "fit_time_s": np.nan,
                         "predict_time_s": np.nan,
-                    })
+                    }
+
+                _append_row(row, write_header)
+                write_header = False
+                results.append(row)
 
     df = pd.DataFrame(results)
-    df.to_csv(RESULTS_CSV, index=False)
     print(f"\nResults saved to {RESULTS_CSV}")
     print(f"Total rows: {len(df)}, Failures: {df['accuracy'].isna().sum()}")
     return df
