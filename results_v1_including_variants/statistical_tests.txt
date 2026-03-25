@@ -1,0 +1,78 @@
+=== Friedman Test ===
+Statistic: nan
+p-value:   nan
+Significant (p < 0.05): False
+
+=== Average Ranks (lower is better) ===
+  MultiROCKETHydra     3.000
+  MultiROCKET          4.167
+  MiniROCKET           4.583
+  BOSS                 5.300
+  InceptionTime        5.667
+  ROCKET               5.667
+  ST                   5.833
+  catch22              6.667
+  TSF                  6.833
+  1NN-DTW              8.500
+  1NN-ED               8.833
+
+=== Nemenyi Post-hoc Test ===
+Critical Difference (CD): 5.8039
+k=11 classifiers, N=6 datasets, alpha=0.05
+
+Pairwise rank differences (significant if > CD):
+  MultiROCKETHydra     vs MultiROCKET         : diff=1.167 
+  MultiROCKETHydra     vs MiniROCKET          : diff=1.583 
+  MultiROCKETHydra     vs BOSS                : diff=2.300 
+  MultiROCKETHydra     vs InceptionTime       : diff=2.667 
+  MultiROCKETHydra     vs ROCKET              : diff=2.667 
+  MultiROCKETHydra     vs ST                  : diff=2.833 
+  MultiROCKETHydra     vs catch22             : diff=3.667 
+  MultiROCKETHydra     vs TSF                 : diff=3.833 
+  MultiROCKETHydra     vs 1NN-DTW             : diff=5.500 
+  MultiROCKETHydra     vs 1NN-ED              : diff=5.833 *
+  MultiROCKET          vs MiniROCKET          : diff=0.417 
+  MultiROCKET          vs BOSS                : diff=1.133 
+  MultiROCKET          vs InceptionTime       : diff=1.500 
+  MultiROCKET          vs ROCKET              : diff=1.500 
+  MultiROCKET          vs ST                  : diff=1.667 
+  MultiROCKET          vs catch22             : diff=2.500 
+  MultiROCKET          vs TSF                 : diff=2.667 
+  MultiROCKET          vs 1NN-DTW             : diff=4.333 
+  MultiROCKET          vs 1NN-ED              : diff=4.667 
+  MiniROCKET           vs BOSS                : diff=0.717 
+  MiniROCKET           vs InceptionTime       : diff=1.083 
+  MiniROCKET           vs ROCKET              : diff=1.083 
+  MiniROCKET           vs ST                  : diff=1.250 
+  MiniROCKET           vs catch22             : diff=2.083 
+  MiniROCKET           vs TSF                 : diff=2.250 
+  MiniROCKET           vs 1NN-DTW             : diff=3.917 
+  MiniROCKET           vs 1NN-ED              : diff=4.250 
+  BOSS                 vs InceptionTime       : diff=0.367 
+  BOSS                 vs ROCKET              : diff=0.367 
+  BOSS                 vs ST                  : diff=0.533 
+  BOSS                 vs catch22             : diff=1.367 
+  BOSS                 vs TSF                 : diff=1.533 
+  BOSS                 vs 1NN-DTW             : diff=3.200 
+  BOSS                 vs 1NN-ED              : diff=3.533 
+  InceptionTime        vs ROCKET              : diff=0.000 
+  InceptionTime        vs ST                  : diff=0.167 
+  InceptionTime        vs catch22             : diff=1.000 
+  InceptionTime        vs TSF                 : diff=1.167 
+  InceptionTime        vs 1NN-DTW             : diff=2.833 
+  InceptionTime        vs 1NN-ED              : diff=3.167 
+  ROCKET               vs ST                  : diff=0.167 
+  ROCKET               vs catch22             : diff=1.000 
+  ROCKET               vs TSF                 : diff=1.167 
+  ROCKET               vs 1NN-DTW             : diff=2.833 
+  ROCKET               vs 1NN-ED              : diff=3.167 
+  ST                   vs catch22             : diff=0.833 
+  ST                   vs TSF                 : diff=1.000 
+  ST                   vs 1NN-DTW             : diff=2.667 
+  ST                   vs 1NN-ED              : diff=3.000 
+  catch22              vs TSF                 : diff=0.167 
+  catch22              vs 1NN-DTW             : diff=1.833 
+  catch22              vs 1NN-ED              : diff=2.167 
+  TSF                  vs 1NN-DTW             : diff=1.667 
+  TSF                  vs 1NN-ED              : diff=2.000 
+  1NN-DTW              vs 1NN-ED              : diff=0.333 
