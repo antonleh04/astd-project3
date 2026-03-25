@@ -11,10 +11,14 @@ pip install -r requirements.txt
 ### 1. Run experiments
 
 ```bash
+# Run all datasets
 python src/benchmark.py
+
+# Run a single dataset (useful for distributing across machines)
+python src/benchmark.py --dataset Computers
 ```
 
-Runs 5-fold stratified CV for 8 classifiers on 7 UCR datasets. Results are saved to `results/benchmark_results.csv`.
+Runs 5-fold stratified CV for 11 classifiers on 8 UCR datasets. Results are saved to `results/benchmark_results.csv`.
 
 ### 2. Analyze results
 
