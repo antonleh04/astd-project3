@@ -1,0 +1,40 @@
+=== Friedman Test ===
+Statistic: 20.1151
+p-value:   0.002642
+Significant (p < 0.05): True
+
+=== Average Ranks (lower is better) ===
+  ROCKET               1.600
+  ST                   2.800
+  BOSS                 3.200
+  TSF                  3.600
+  catch22              4.200
+  1NN-DTW              6.200
+  1NN-ED               6.400
+
+=== Nemenyi Post-hoc Test ===
+Critical Difference (CD): 4.0291
+k=7 classifiers, N=5 datasets, alpha=0.05
+
+Pairwise rank differences (significant if > CD):
+  ROCKET               vs ST                  : diff=1.200 
+  ROCKET               vs BOSS                : diff=1.600 
+  ROCKET               vs TSF                 : diff=2.000 
+  ROCKET               vs catch22             : diff=2.600 
+  ROCKET               vs 1NN-DTW             : diff=4.600 *
+  ROCKET               vs 1NN-ED              : diff=4.800 *
+  ST                   vs BOSS                : diff=0.400 
+  ST                   vs TSF                 : diff=0.800 
+  ST                   vs catch22             : diff=1.400 
+  ST                   vs 1NN-DTW             : diff=3.400 
+  ST                   vs 1NN-ED              : diff=3.600 
+  BOSS                 vs TSF                 : diff=0.400 
+  BOSS                 vs catch22             : diff=1.000 
+  BOSS                 vs 1NN-DTW             : diff=3.000 
+  BOSS                 vs 1NN-ED              : diff=3.200 
+  TSF                  vs catch22             : diff=0.600 
+  TSF                  vs 1NN-DTW             : diff=2.600 
+  TSF                  vs 1NN-ED              : diff=2.800 
+  catch22              vs 1NN-DTW             : diff=2.000 
+  catch22              vs 1NN-ED              : diff=2.200 
+  1NN-DTW              vs 1NN-ED              : diff=0.200 
