@@ -1,3 +1,4 @@
+import argparse
 import time
 import warnings
 
@@ -23,21 +24,25 @@ def load_dataset(name):
     return X, y
 
 
-def _append_row(row, write_header):
+def _append_row(row, write_header, csv_path):
     """Append a single result row to the CSV file."""
     df_row = pd.DataFrame([row])
-    df_row.to_csv(RESULTS_CSV, mode="a", header=write_header, index=False)
+    df_row.to_csv(csv_path, mode="a", header=write_header, index=False)
 
 
-def run_experiments():
-    os.makedirs(RESULTS_DIR, exist_ok=True)
+def run_experiments(datasets=None, output_csv=None):
+    if datasets is None:
+        datasets = DATASETS
+    if output_csv is None:
+        output_csv = RESULTS_CSV
+    os.makedirs(os.path.dirname(output_csv), exist_ok=True)
     results = []
     skf = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=RANDOM_SEED)
 
     # Start fresh: write header with first row
     write_header = True
 
-    for ds_name in DATASETS:
+    for ds_name in datasets:
         print(f"\n{'='*60}")
         print(f"Dataset: {ds_name}")
         print(f"{'='*60}")
@@ -94,12 +99,12 @@ def run_experiments():
                         "predict_time_s": np.nan,
                     }
 
-                _append_row(row, write_header)
+                _append_row(row, write_header, output_csv)
                 write_header = False
                 results.append(row)
 
     df = pd.DataFrame(results)
-    print(f"\nResults saved to {RESULTS_CSV}")
+    print(f"\nResults saved to {output_csv}")
     print(f"Total rows: {len(df)}, Failures: {df['accuracy'].isna().sum()}")
     return df
 
@@ -143,6 +148,20 @@ def check_gpu():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dataset", type=str, default=None,
+                        help="Run only this dataset (must be one of DATASETS in config.py)")
+    args = parser.parse_args()
+
+    if args.dataset:
+        if args.dataset not in DATASETS:
+            parser.error(f"Unknown dataset '{args.dataset}'. Choose from: {DATASETS}")
+        datasets = [args.dataset]
+        output_csv = os.path.join(RESULTS_DIR, f"results_{args.dataset}.csv")
+    else:
+        datasets = DATASETS
+        output_csv = RESULTS_CSV
+
     check_gpu()
     np.random.seed(RANDOM_SEED)
-    run_experiments()
+    run_experiments(datasets, output_csv)
