@@ -32,5 +32,4 @@ Rather than summarising each feature map with scalar pooling statistics, Hydra o
 
 This construction is closely related to the Bag-of-SFA-Symbols (BOSS) dictionary representation: the group of $g$ kernels can be seen as a soft codebook, and the histogram as a symbolic frequency profile. The key difference is that Hydra's codebook is random and extremely cheap to compute, whereas BOSS requires a Symbolic Fourier Approximation discretisation step that is quadratic in training-set size. Empirically, Hydra surpasses ROCKET and MultiROCKET in mean classification rank on the UCR archive while remaining an order of magnitude faster than InceptionTime. It is particularly effective on problems with long and complex series, where the positional frequency of matched patterns --- rather than just their peak value or overall proportion --- carries the most discriminative information.
 
-A combined variant, \textbf{Hydra-MultiROCKET}, concatenates Hydra's histogram features with MultiROCKET's pooling features.
-This hybrid achieves the highest mean accuracy in the ROCKET family to date on the UCR archive.
+A combined variant, \textbf{Hydra-MultiROCKET}, concatenates Hydra's histogram features with MultiROCKET's pooling features, achieving the highest mean accuracy in the ROCKET family to date on the UCR archive.

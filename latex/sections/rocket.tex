@@ -1,6 +1,6 @@
 \section{ROCKET Method}
 \label{sec:rocket}
-ROCKET transforms time series by applying convolutional kernels, which are not learned through training, but instead are randomly initialized. Each kernel has parameters including length, weights, dilation, and bias, all of which are assigned randomly. The randomness allows the algorithm to generate a diverse set of filters, capable of capturing a wide variety of temporal patterns.
+ROCKET transforms time series by applying convolutional kernels, which are not learned through training, but instead are randomly initialized \cite{dempster2020rocket}. Each kernel has parameters including length, weights, dilation, and bias, all of which are assigned randomly. The randomness allows the algorithm to generate a diverse set of filters, capable of capturing a wide variety of temporal patterns.
 
 Once the kernels are applied to a time series, each convolution produces a feature map, showing the activation of the kernel across the entire series. From each feature map, ROCKET extracts two key summary features: Maximum value and Proportion of Positive Values (PPV).
 
