@@ -1,0 +1,49 @@
+\documentclass[conference]{IEEEtran}
+
+% Basic packages for a compact IEEE-style paper
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\title{ROCKET for Univariate Time Series Classification:\\
+Experimental Evaluation Against State-of-the-Art Baselines}
+
+\author{
+\IEEEauthorblockN{Alessandro, Anton, Lara, Iñigo}
+\IEEEauthorblockA{Faculty of Informatics / UPV\\
+San Sebastián, Spain\\}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In this paper, we present ROCKET, a univariate time series classification algorithm based on random convolutional kernels, which combines speed and high accuracy. We evaluate ROCKET on a selection of datasets from the UCR repository and compare its performance against seven benchmark algorithms: 1NN-Euclidean, 1NN-DTW, Shapelet Transform, BOSS ensemble, Time Series Forest, InceptionTime and catch22. Our experimentation employs a robust validation framework and considers multiple evaluation metrics, including accuracy and computational efficiency. The results demonstrate that ROCKET consistently outperforms the benchmark algorithms in both accuracy and scalability, demonstrating its effectiveness for large-scale time series classification tasks.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Time series classification, Random convolutional kernels
+\end{IEEEkeywords}
+
+\input{sections/introduction}
+\input{sections/rocket}
+\input{sections/variants}
+\input{sections/experimentation}
+\input{sections/results}
+\input{sections/conclusions}
+
+% Keep bibliography non-empty while section citations are still being added.
+\nocite{bagnall2017bakeoff,dempster2020rocket,middlehurst2024bakeoffredux,aeon,ucr}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,32 @@
+\section{ROCKET Method}
+\label{sec:rocket}
+ROCKET transforms time series by applying convolutional kernels, which are not learned through training, but instead are randomly initialized. Each kernel has parameters including length, weights, dilation, and bias, all of which are assigned randomly. The randomness allows the algorithm to generate a diverse set of filters, capable of capturing a wide variety of temporal patterns.
+
+Once the kernels are applied to a time series, each convolution produces a feature map, showing the activation of the kernel across the entire series. From each feature map, ROCKET extracts two key summary features: Maximum value and Proportion of Positive Values (PPV).
+
+Using a large number of kernels, ROCKET transforms each time series into a high-dimensional feature vector, which captures a large variety of temporal patterns without requiring kernel training.
+
+These feature vectors are then fed into a linear classifier, typically Ridge Regression or Logistic Regression, which performs the final classification.
+
+\subsection{Kernels}
+ROCKET relies on a large number of convolutional kernels to extract meaningful features from time series. Each kernel acts like a small filter that highlights certain patterns in the data. Although the kernels are randomly initialized and not learned, their diversity allows the algorithm to extract rich and varied features from the time series. This random initialization enables ROCKET to efficiently explore a wide variety of temporal patterns without the computational cost of training each kernel.
+
+The main parameters of each kernel are:
+\begin{itemize}
+    \item Length $l$: determines how many consecutive points the kernel considers, which allows kernels of different scales to detect both short and long-term patterns.
+    \item Weights $w$: sampled from a standard normal distribution, giving each kernel a unique pattern of emphasis over the input series.
+    \item Dilation $d$: controls the spacing between points in the kernel. A dilation of $d > 1$ allows the kernel to skip points in the series, allowing the model to capture patterns that occur over longer time intervals or at multiple scales.
+    \item Bias $b$: random offset added to the convolution output, which increases variability of the resulting feature map.
+\end{itemize}
+
+Additionally, padding is applied when necessary to ensure that kernels cover the full series, preserving feature extraction across all time points. Each kernel produces a feature map along the series, which will later be summarized in the feature extraction stage.
+
+\subsection{Time Series Transformation}
+
+\subsection{Feature Extraction}
+
+\subsection{Classifier}
+
+\subsection{Advantages}
+
+\subsection{Limitations}
