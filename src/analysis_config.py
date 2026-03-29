@@ -20,20 +20,6 @@ CLASSIFIERS_TO_ANALYZE = [
 ]
 
 
-# Set to None to include all datasets found in the results CSV.
-# DATASETS_TO_ANALYZE = [
-#     "Computers",
-#     "MiddlePhalanxOutlineCorrect",
-#     "Worms",
-#     #"EMOPain",
-#     "EthanolLevel",
-#     "Chinatown",
-#     "ECG200",
-#     "SwedishLeaf",
-#     "SyntheticControl",
-#     "Beef",
-#     "Trace",
-#     "TwoPatterns"
-# ]
+
 
 DATASETS_TO_ANALYZE = None

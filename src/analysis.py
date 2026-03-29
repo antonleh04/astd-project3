@@ -109,17 +109,27 @@ def plot_predict_time_linear(df):
 # ---- Statistical Tests ----
 
 def compute_ranks(mean_acc):
-    """Rank classifiers per dataset (1 = best). Returns ranks DataFrame and average ranks."""
+    """Rank classifiers per dataset (1 = best). Returns ranks DataFrame and average ranks.
+
+    Classifiers with NaN (e.g. unsupported dataset) receive rank k (last place).
+    """
+    k = len(mean_acc.columns)
     ranks = mean_acc.rank(axis=1, ascending=False)
+    ranks = ranks.fillna(k)
     avg_ranks = ranks.mean(axis=0).sort_values()
     return ranks, avg_ranks
 
 
-def friedman_test(mean_acc):
-    """Run Friedman test on accuracy matrix (datasets x classifiers)."""
-    # Each column is a classifier, each row a dataset
-    cols = [mean_acc[c].values for c in mean_acc.columns]
-    stat, p = stats.friedmanchisquare(*cols)
+def friedman_test(ranks):
+    """Run Friedman test on a pre-computed ranks matrix (datasets x classifiers).
+
+    Uses the standard Friedman statistic formula so pre-assigned ranks (e.g. worst-rank
+    penalty for unsupported datasets) are respected rather than re-ranked by scipy.
+    """
+    N, k = ranks.shape
+    rank_sums = ranks.sum(axis=0)
+    stat = (12 / (N * k * (k + 1))) * (rank_sums ** 2).sum() - 3 * N * (k + 1)
+    p = stats.chi2.sf(stat, df=k - 1)
     return stat, p
 
 
@@ -278,6 +288,11 @@ def write_statistical_report(mean_acc, ranks, avg_ranks, fstat, fpval, cd):
     """Write statistical test results to text file."""
     path = os.path.join(ANALYSIS_DIR, "statistical_tests.txt")
     with open(path, "w") as f:
+        k_clfs = len(mean_acc.columns)
+        n_nan = mean_acc.isna().sum().sum()
+        if n_nan > 0:
+            f.write(f"Note: {n_nan} missing value(s) in accuracy matrix assigned worst rank "
+                    f"({k_clfs}) as penalty for unsupported datasets.\n\n")
         f.write("=== Friedman Test ===\n")
         f.write(f"Statistic: {fstat:.4f}\n")
         f.write(f"p-value:   {fpval:.6f}\n")
@@ -319,7 +334,7 @@ def main():
     plot_predict_time_linear(df)
 
     ranks, avg_ranks = compute_ranks(mean_acc)
-    fstat, fpval = friedman_test(mean_acc)
+    fstat, fpval = friedman_test(ranks)
     k = len(mean_acc.columns)
     n = len(mean_acc)
     cd = nemenyi_cd(k, n)
