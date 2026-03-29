@@ -16,29 +16,27 @@
 
 \title{ROCKET: Exceptionally Fast and Accurate Time Series Classification Using Random Convolutional Kernels}
 
-\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
+\author{\IEEEauthorblockN{Given Name Surname}
 \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
 \textit{name of organization (of Aff.)}\\
 City, Country \\
 email address or ORCID}
 \and
-\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
+\IEEEauthorblockN{Given Name Surname}
 \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
 \textit{name of organization (of Aff.)}\\
 City, Country \\
 email address or ORCID}
 \and
-\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
+\IEEEauthorblockN{Given Name Surname}
 \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
 \textit{name of organization (of Aff.)}\\
 City, Country \\
 email address or ORCID}
 \and
-\IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
+\IEEEauthorblockN{ Anton Lehnerer}
+\IEEEauthorblockA{\textit{EHU} \\
+alehnerer001@ikasle.ehu.eus}
 }
 
 \maketitle
@@ -56,7 +54,7 @@ Time series classification is a fundamental task in many domains where large vol
 
 ROCKET (RandOm Convolutional KErnel Transform) is an algorithm designed to overcome these limitations. It applies a large number of randomly initialized convolutional kernels to transform time series data into feature representations, which are then fed into linear classifiers. This approach enables both fast processing and high classification accuracy, even on large-scale datasets. 
 
-In this paper, we evaluate ROCKET on a selection of UCR datasets and compare its performance with six benchmark algorithms, analyzing both accuracy and computational efficiency. 
+In this paper, we evaluate ROCKET on a selection of UCR datasets and compare its performance with seven benchmark algorithms, analyzing both accuracy and computational efficiency.
 
 \section{ROCKET Algorithm}
 ROCKET transforms time series by applying convolutional kernels, which are not learned through training, but instead are randomly initialized. Each kernel has parameters including length, weights, dilation, and bias, all of which are assigned randomly. The randomness allows the algorithm to generate a diverse set of filters, capable of capturing a wide variety of temporal patterns. 
@@ -134,7 +132,7 @@ Building upon this foundational concept, the Hydra-MultiROCKET architecture unit
 
 \section{Experimentation Comparison with Benchmark Models}
 \subsection{Datasets}
-We try to choose datasets from a range of different domains. In total, we include datasets from 9 different domains in our experimentation. The selection includes device/energy monitoring (Computers), biomedical signals (ECG200, EMOPain), industrial sensors (FordA, Earthquakes, Trace), spectroscopy (EthanolLevel, Beef), biology/motion capture (Worms, WormsTwoClass), image (SwedishLeaf, MiddlePhalanxOutlineCorrect), traffic (Chinatown), and synthetic benchmarks (CBF, SyntheticControl). We also take into account the length of the time series contained in the datasets. The lengths range from 24 (Chinatown) to 1751 (EthanolLevel). Dataset size: Since we do not use the predefined train/test split, we are interested in the total number of samples in the datasets. These span over a range of 60 (Beef) to 5000 (TwoPatterns). We also aim to reach a broad range of classes: Our selection mainly covers 2-class datasets, but we also include datasets with 3-6 classes (Worms, EMOPain, EthanolLevel, CBF, SyntheticControl, Beef, Trace). We also include a 15 class dataset (SwedishLeaf). We also try to include datasets with different difficulties. SwedishLeaf has 15 classes which are perfectly balanced, which makes the dataset overall more challenging for classification. On the contrary, we also include unbalanced datasets like Earthquakes.
+We try to choose datasets from a range of different domains. In total, we include datasets from 9 different domains in our experimentation. The selection includes device/energy monitoring (Computers), biomedical signals (ECG200, EMOPain), industrial sensors (FordA, Earthquakes, Trace), spectroscopy (EthanolLevel, Beef), biology/motion capture (Worms, WormsTwoClass), image (SwedishLeaf, MiddlePhalanxOutlineCorrect), traffic (Chinatown), and synthetic benchmarks (CBF, SyntheticControl). We also take into account the length of the time series contained in the datasets. The lengths range from 24 (Chinatown) to 1751 (EthanolLevel). Dataset size: Since we do not use the predefined train/test split, we are interested in the total number of samples in the datasets. These span over a range of 60 (Beef) to 5000 (TwoPatterns). We also aim to reach a broad range of classes: Our selection mainly covers 2-class datasets, but we also include datasets with 3-6 classes (Worms, EMOPain, EthanolLevel, CBF, SyntheticControl, Beef, Trace). We also include a 15 class dataset (SwedishLeaf). We also try to include datasets with different difficulties. SwedishLeaf has 15 classes which are perfectly balanced, which makes the dataset overall more challenging for classification. On the contrary, we also include unbalanced datasets like Earthquakes. Notably, EMOPain is the only multivariate dataset in our selection (30 channels), which allows us to assess algorithm support for multivariate input.
 
 \input{datasets.tex}
 
@@ -152,9 +150,16 @@ To run our experiments, we distribute the experiments per dataset across differe
 
 \section{Results}
 \subsection{Classification Accuracy}
-The table below reports the classification accuracy of each algorithm on all evaluated benchmark datasets. The best performance is highlighted boldly. Across the whole benchmark, MultiROCKETHydra achieved the highest mean accuracy of 0.909, followed by MultiROCKET at 0.908. MiniROCKET (0.895), ST (0.893), and ROCKET (0.888) reach very similar mean accuracy, while the distance-based baselines 1NN-DTW (0.791) and 1NN-ED (0.766) ranked the lowest. Shapelet Transform (ST) ranked fifth overall (0.893) but was the top performer on EthanolLevel---the hardest dataset in the benchmark (mean accuracy across classifiers: 0.598). 
+Table~\ref{tab:accuracy} reports the classification accuracy of each algorithm on all evaluated benchmark datasets. The best performance per dataset is highlighted in bold. Across the whole benchmark, MultiROCKETHydra achieved the highest mean accuracy of 0.909, followed by MultiROCKET at 0.908. MiniROCKET (0.895), ST (0.893), and ROCKET (0.888) reach very similar mean accuracy, while the distance-based baselines 1NN-DTW (0.791) and 1NN-ED (0.766) ranked the lowest. Shapelet Transform (ST) ranked fifth overall (0.893) but was the top performer on EthanolLevel---the hardest dataset in the benchmark (mean accuracy across classifiers: 0.598). We note that InceptionTime was trained with 100 epochs instead of the default 1500 for computational feasibility, which may understate its performance on certain datasets (e.g., Beef: 0.217, WormsTwoClass: 0.469).
 
-To evaluate the sensitivity of our findings to the choice of metric, we compare the relative ranks in Fig. \ref{fig:rank_stability}. The top three models (MultiROCKETHydra, MultiROCKET, and MiniROCKET) exhibit absolute rank stability, maintaining ranks 1, 2, and 3 regardless of the metric used. 
+To evaluate the sensitivity of our findings to the choice of metric, we compare the relative ranks across accuracy, balanced accuracy, weighted F1-score and Cohen's kappa (Fig.~\ref{fig:rank_stability}). The top three models (MultiROCKETHydra, MultiROCKET, and MiniROCKET) exhibit absolute rank stability, maintaining ranks 1, 2, and 3 regardless of the metric used.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{metric_rank_stability.pdf}
+\caption{Classifier ranks across different evaluation metrics, demonstrating the stability of the top-performing models.}
+\label{fig:rank_stability}
+\end{figure}
 
 \input{accuracy_table.tex}
 
@@ -168,7 +173,7 @@ We ran a Friedman test, which rejected the null hypothesis of equal classifier p
 \label{fig:cd_diagram}
 \end{figure}
 
-Since BOSS does not support multivariate Time series, we penalized it by assigning it the last Rank for the EMOPain dataset.
+Since BOSS does not support multivariate time series, we penalized it by assigning it the last rank for the EMOPain dataset (30 channels, see Table~\ref{tab:datasets}).
 
 \subsection{Computational Cost}
 Training and inference time varied immensely with the different algorithms. The 1NN benchmark algorithms had the lowest fit times, but 1NN-DTW had by far the highest inference time. BOSS (639.4s) had the longest training time. The ROCKET family has the best tradeoff between accuracy and efficiency. MiniROCKET was the fastest algorithm of the ROCKET family (1.5s fit, 0.17s predict). We note that we plot the time consumption graphs on a log scale.
