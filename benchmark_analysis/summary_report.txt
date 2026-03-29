@@ -1,0 +1,122 @@
+Benchmark Analysis Report
+Generated: 2026-03-29 19:11
+Classifiers: 11  |  Datasets: 15
+======================================================================
+
+MEAN ACCURACY ACROSS ALL DATASETS
+--------------------------------------------------
+  MultiROCKETHydra           0.9093 +/- 0.0897
+  MultiROCKET                0.9075 +/- 0.0904
+  MiniROCKET                 0.8945 +/- 0.1045
+  ST                         0.8927 +/- 0.0877
+  ROCKET                     0.8876 +/- 0.1100
+  TSF                        0.8670 +/- 0.1156
+  BOSS                       0.8644 +/- 0.1275
+  catch22                    0.8271 +/- 0.1577
+  InceptionTime              0.7917 +/- 0.2437
+  1NN-DTW                    0.7912 +/- 0.2100
+  1NN-ED                     0.7661 +/- 0.2055
+
+  Best:  MultiROCKETHydra (0.9093)
+  Worst: 1NN-ED (0.7661)
+
+
+BEST AND WORST DATASET PER ALGORITHM
+--------------------------------------------------
+  1NN-DTW                    best: Trace (1.0000)  worst: EthanolLevel (0.2729)
+  1NN-ED                     best: CBF (0.9882)  worst: EthanolLevel (0.2819)
+  BOSS                       best: CBF (1.0000)  worst: EthanolLevel (0.5697)
+  InceptionTime              best: CBF (1.0000)  worst: Beef (0.2167)
+  MiniROCKET                 best: CBF (1.0000)  worst: EthanolLevel (0.7022)
+  MultiROCKET                best: CBF (1.0000)  worst: EthanolLevel (0.7689)
+  MultiROCKETHydra           best: CBF (1.0000)  worst: EthanolLevel (0.7580)
+  ROCKET                     best: CBF (1.0000)  worst: EthanolLevel (0.6663)
+  ST                         best: CBF (1.0000)  worst: Worms (0.7557)
+  TSF                        best: CBF (1.0000)  worst: Worms (0.6744)
+  catch22                    best: Trace (1.0000)  worst: EthanolLevel (0.3974)
+
+
+BEST ALGORITHM PER DATASET
+--------------------------------------------------
+  Beef                                 MiniROCKET (0.9167)
+  CBF                                  BOSS (1.0000)
+  Chinatown                            MultiROCKET (0.9890)
+  Computers                            MultiROCKETHydra (0.8880)
+  ECG200                               ROCKET (0.9300)
+  EMOPain                              InceptionTime (0.9698)
+  Earthquakes                          ROCKET (0.7982)
+  EthanolLevel                         ST (0.8865)
+  MiddlePhalanxOutlineCorrect          MultiROCKETHydra (0.8664)
+  SwedishLeaf                          MultiROCKETHydra (0.9858)
+  SyntheticControl                     MultiROCKET (0.9983)
+  Trace                                1NN-DTW (1.0000)
+  TwoPatterns                          1NN-DTW (1.0000)
+  Worms                                MultiROCKETHydra (0.7865)
+  WormsTwoClass                        BOSS (0.8601)
+
+
+DATASET WINS PER ALGORITHM
+--------------------------------------------------
+  1NN-DTW                    2 wins
+  1NN-ED                     0 wins
+  BOSS                       2 wins
+  InceptionTime              1 wins
+  MiniROCKET                 1 wins
+  MultiROCKET                2 wins
+  MultiROCKETHydra           4 wins
+  ROCKET                     2 wins
+  ST                         1 wins
+  TSF                        0 wins
+  catch22                    0 wins
+
+
+MEAN FIT TIME (seconds)
+--------------------------------------------------
+  1NN-DTW                    0.0008s
+  1NN-ED                     0.0010s
+  MiniROCKET                 1.4918s
+  catch22                    1.8292s
+  MultiROCKET                9.8617s
+  MultiROCKETHydra           10.9150s
+  TSF                        14.0117s
+  ROCKET                     19.2056s
+  ST                         257.6941s
+  InceptionTime              314.3933s
+  BOSS                       639.3669s
+
+
+MEAN PREDICT TIME (seconds)
+--------------------------------------------------
+  1NN-ED                     0.1423s
+  MiniROCKET                 0.1700s
+  catch22                    0.3503s
+  MultiROCKET                1.9817s
+  TSF                        2.2828s
+  MultiROCKETHydra           2.3701s
+  ROCKET                     4.5717s
+  BOSS                       4.7053s
+  ST                         4.8048s
+  InceptionTime              7.7838s
+  1NN-DTW                    228.8681s
+
+
+DATASET DIFFICULTY (mean accuracy across algorithms)
+--------------------------------------------------
+  CBF                                  0.9983
+  TwoPatterns                          0.9870
+  SyntheticControl                     0.9852
+  Chinatown                            0.9744
+  Trace                                0.9736
+  SwedishLeaf                          0.9312
+  EMOPain                              0.9241
+  ECG200                               0.8859
+  MiddlePhalanxOutlineCorrect          0.8247
+  Computers                            0.8029
+  Earthquakes                          0.7722
+  WormsTwoClass                        0.7463
+  Beef                                 0.7303
+  Worms                                0.6886
+  EthanolLevel                         0.5976
+
+  Easiest: CBF (0.9983)
+  Hardest: EthanolLevel (0.5976)

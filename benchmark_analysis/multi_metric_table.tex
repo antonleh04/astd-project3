@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\caption{Mean performance across datasets for all evaluation metrics. \textbf{Bold} marks the best result per metric.}
+\label{tab:multi_metric}
+\begin{tabular}{lcccc}
+\toprule
+Classifier & Accuracy & Bal. Accuracy & F1 (weighted) & Cohen's κ \\
+\midrule
+ROCKET & 0.888 & 0.849 & 0.880 & 0.759 \\
+MiniROCKET & 0.895 & 0.866 & 0.890 & 0.776 \\
+MultiROCKET & 0.907 & 0.877 & 0.902 & 0.799 \\
+MultiROCKETHydra & \textbf{0.909} & \textbf{0.879} & \textbf{0.904} & \textbf{0.802} \\
+1NN-ED & 0.766 & 0.743 & 0.761 & 0.591 \\
+1NN-DTW & 0.791 & 0.770 & 0.788 & 0.633 \\
+ST & 0.893 & 0.849 & 0.884 & 0.756 \\
+BOSS & 0.864 & 0.832 & 0.855 & 0.728 \\
+TSF & 0.867 & 0.828 & 0.858 & 0.724 \\
+InceptionTime & 0.792 & 0.765 & 0.758 & 0.631 \\
+catch22 & 0.827 & 0.790 & 0.820 & 0.671 \\
+\bottomrule
+\end{tabular}
+\end{table*}
