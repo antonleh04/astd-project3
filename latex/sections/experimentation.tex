@@ -1,2 +1,26 @@
+% !TEX root = ../main.tex
 \section{Experimentation}
 \label{sec:exp}
+
+\subsection{Datasets}
+\begin{enumerate}
+	\item We try to choose datasets from a range of different domains. In total, we include datasets from 9 different domains in our experimentation. The selection includes device/energy monitoring (Computers), biomedical signals (ECG200, EMOPain), industrial sensors (FordA, Earthquakes, Trace), spectroscopy (EthanolLevel, Beef), biology/motion capture (Worms, WormsTwoClass), image (SwedishLeaf, MiddlePhalanxOutlineCorrect), traffic (Chinatown), and synthetic benchmarks (CBF, SyntheticControl).
+	\item We also take into account the length of the time series contained in the datasets. The lengths range from 24 (Chinatown) to 1751 (EthanolLevel). 
+	\item Dataset size: Since we do not use the predefined train/test split, we are interested in the total number of samples in the datasets. These span over a range of 60 (Beef) to 5000 (TwoPatterns). 
+	\item We also aim to reach a broad range of classes: Our selection mainly covers 2-class datasets, but we also include datasets with 3-6 classes (Worms, EMOPain, EthanolLevel, CBF, SyntheticControl, Beef, Trace). We also include a 15 class dataset (SwedishLeaf). 
+	\item We also try to include datasets with different difficulties. SwedishLeaf has 15 classes which are perfectly balanced, which makes the dataset overall more challenging for classification. On the contrary, we also include unbalanced datasets like Earthquakes.
+\end{enumerate}
+
+\subsection{Evaluated Algorithms}
+To evaluate our algorithm, ROCKET and its variations MiniROCKET, MultiROCKET and MultiROCKETHydra, we run experiments with seven benchmark classifiers. We include simple distance based classifiers, which classify by Nearest Neighbour, using Euclidian Distance (1NN-ED) and Dynamic Time Warping (1NN-DTW). From the shapelet based algorithms, we select Shapelet Transform (ST). We also include a dictionary based classifier with BOSS. We also choose Time Series Forest (TSF), which takes an interval based approach and a feature based classifier with catch22. Lastly, we include InceptionTime, a deep learning model. 
+All classifiers are loaded from the aeon toolkit and run with default parameters. The only exception is InceptionTime. For computational feasibility, we adjust the number of training epochs to 100 (default is 1500). 
+
+\subsection{Validation Framework and Metrics}
+To ensure results that are robust, we evaluate all named algorithms with stratified 5-Fold Cross Validation. After loading the datasets from the UCR archive via aeon, we merge the train and test set. After, we repartition the samples and ensure that the classes are in equal proportion across the splits. For reproducibility, we fix the random seed to 42. 
+
+The Performance was measured by using four metrics: accuracy, balanced accuracy, weighted F1-score and Cohen’s kappa. For datasets with a significant class imbalance, we are particularly interested in F1 score and Cohen's kappa. 
+
+Additionally, we measure training and inference time. 
+
+\subsection{Hardware}
+To run the experiments, we distribute dataset-level jobs across multiple machines and execute all 5 folds for each classifier. Most algorithms are executed on CPU. The only exception is InceptionTime, which is trained on GPU using NVIDIA GeForce RTX 2080 hardware.

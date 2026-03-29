@@ -1,29 +1,19 @@
+% !TEX root = ../main.tex
 \section{Variants}
-Since its introduction, ROCKET has inspired a family of successors.
-These methods address its main limitations: computational overhead, non-determinism, and restriction to univariate input. At the same time, they preserve or improve classification accuracy.
-The three principal variants are described below.
+Since its introduction, ROCKET has inspired a family of successors that address its main limitations—computational overhead, non-determinism, and restriction to univariate input—while preserving or improving upon its accuracy. The three principal variants are described below.
 
 \subsection{MiniROCKET}
-MiniROCKET (Dempster et al., 2021) is designed to be almost deterministic and substantially faster than the original, while achieving accuracy that is statistically indistinguishable from ROCKET across the UCR archive.
-
-The key architectural change is the restriction of kernel weights to elements of the set $\{-1, +1\}$, drawn from a fixed, small pool of weight vectors rather than sampled afresh from a standard normal distribution. Specifically, MiniROCKET enumerates all possible binary weight vectors of lengths $(7, 9, 11)$ whose entries belong to $\{-1, +1\}$ and whose number of positive entries satisfies a fixed proportion, then selects 84 of them. These 84 weight vectors are reused across all kernels in the bank; only dilation and bias vary. Crucially, bias values are no longer random: they are drawn systematically from the quantiles of the convolution outputs observed on the training data. This data-dependent bias calibration is the sole non-deterministic step in MiniROCKET, and its effect on run-to-run variance is negligible in practice.
-
-The impact on speed is significant. Because the weights are binary and fixed, the sliding dot-product computation can be replaced by simple integer additions and subtractions, reducing the constant factor of the transform by approximately $4\times$ compared to ROCKET. On the full 85-dataset UCR benchmark, MiniROCKET trains in roughly one quarter of the time required by ROCKET while achieving a mean accuracy within 0.01 percentage points of ROCKET's mean accuracy. MiniROCKET retains both output features of the original --- PPV and max --- though empirical results show that PPV alone is nearly sufficient, consistent with the sensitivity analysis reported in the original ROCKET paper.
+MiniROCKET (Dempster et al., 2021), optimizes the original framework by over an order of magnitude in computational speed without compromising classification accuracy. This variant transitions the model toward a nearly deterministic state by eliminating several stochastic components.
+In MiniROCKET, the kernel length is standardized to a fixed value of 9, and the weight space is constrained to only two discrete values. Unlike the original random initialization, the bias values are systematically derived from the distribution of the convolution outputs on the training data. Furthermore, the feature set is streamlined by discarding the "max" pooling operation, extracting only the Proportion of Positive Values (PPV). These structural constraints enable hardware-level optimizations that exploit the fixed parameters, providing a substantial reduction in training and inference latency while maintaining state-of-the-art performance across the UCR archive.
 
 \subsection{MultiROCKET}
-MultiROCKET (Tan et al., 2022) is the principal extension of the ROCKET family to multivariate time series and to a richer feature vocabulary.
-
-On the feature-extraction side, MultiROCKET augments the two original summary statistics --- PPV and max --- with three additional pooling operators applied to each feature map:
+MultiROCKET (Tan et al., 2022), extends the framework to multivariate time series and introduces a significantly richer feature vocabulary. While maintaining the efficient weight scheme of MiniROCKET (utilizing the fixed pool of 84 binary vectors), MultiROCKET augments the feature extraction process by introducing three additional pooling operators beyond the original PPV and Max:
 \begin{itemize}
-	\item \textbf{Mean of Positive Values (MPV)}: the average activation strength at positions where the convolution output is positive, capturing how strongly a pattern matches when it does match.
-	\item \textbf{Mean of Indices of Positive Values (MIPV)}: the average position in the series at which the kernel produces a positive output, encoding where in time the matched pattern tends to occur.
-	\item \textbf{Longest Stretch of Positive Values (LSPV)}: the length of the longest contiguous run of positive outputs, providing a measure of the temporal persistence of a given pattern.
+	\item \textbf{Mean of Positive Values (MPV)}: Captures the average activation strength, quantifying the intensity of a pattern match.
+	\item \textbf{Mean of Indices of Positive Values (MIPV)}: Encodes temporal localization by identifying where in the series a pattern typically occurs.
+	\item \textbf{Longest Stretch of Positive Values (LSPV)}: Measures the temporal persistence of a pattern through its longest contiguous activation.
 \end{itemize}
-
-These three operators together with PPV and max yield $5 \times k$ features per channel per series, allowing the linear classifier to exploit not only whether and how strongly a pattern appears, but also where and for how long it persists. Across the UCR archive, the inclusion of these additional features yields a statistically significant improvement in mean rank over ROCKET.
-
-For multivariate series with $c$ channels, MultiROCKET applies the transform independently to each channel and concatenates the resulting feature vectors, producing $5 \times k \times c$ features in total.
-While this design ignores cross-channel interactions, it preserves the linear-time complexity of the original transform and avoids the combinatorial explosion that would result from applying kernels to all pairs of channels. MultiROCKET also inherits MiniROCKET's weight scheme, using the same fixed pool of 84 binary weight vectors, so the overall computational complexity is $O(k \cdot n \cdot l \cdot c)$, linear in all four quantities.
+These five operators produce $5\times k$ features per channel, providing the linear classifier with critical information regarding the frequency, strength, location, and duration of detected patterns. For multivariate data with $C$ channels, the transformation is applied independently to each channel and concatenated. This approach achieves a statistically significant improvement in mean rank across the UCR archive while preserving a linear computational complexity of $O(k\cdot n\cdot l\cdot C)$. By avoiding cross-channel combinatorial kernels, MultiROCKET remains highly scalable while capturing a more comprehensive representation of complex temporal dynamics.
 
 \subsection{Hydra}
 Hydra (Dempster et al., 2023) represents a conceptually distinct evolution of the ROCKET paradigm, combining ideas from random convolutional kernels with dictionary-based methods.
