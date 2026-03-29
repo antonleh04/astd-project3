@@ -3,6 +3,7 @@
 % Basic packages for a compact IEEE-style paper
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{cite}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{amsmath,amssymb}
@@ -10,6 +11,13 @@
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage[nameinlink,noabbrev]{cleveref}
+
+% Recommended by IEEE when using amsmath to avoid poor equation breaks.
+\interdisplaylinepenalty=2500
+
+% IEEE-like unobtrusive links.
+\hypersetup{hidelinks}
+\urlstyle{same}
 
 \title{ROCKET for Univariate Time Series Classification:\\
 Experimental Evaluation Against State-of-the-Art Baselines}
