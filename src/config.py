@@ -14,13 +14,21 @@ from aeon.classification.feature_based import Catch22Classifier
 # --- Datasets ---
 DATASETS = [
     "Computers",
-    "HandOutlines",
     "MiddlePhalanxOutlineCorrect",
-    "WormsTwoClasses",
+    "WormsTwoClass",
     "Worms",
     "Earthquakes",
     "EMOPain",
     "EthanolLevel",
+    "Chinatown",
+    "ECG200",
+    "CBF",
+    "SwedishLeaf",
+    "SyntheticControl",
+    "Beef",
+    "Trace",
+    "Wafer",
+    "TwoPatterns"
 ]
 
 # --- Classifiers ---
