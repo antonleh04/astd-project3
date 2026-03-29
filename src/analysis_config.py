@@ -2,7 +2,7 @@ import os
 
 
 # The script reads benchmark_results.csv from this folder and writes all outputs here.
-ANALYSIS_DIR = "/home/anton/code/astd_project_3/results_including_variants"
+ANALYSIS_DIR = "/home/anton/code/astd_project_3/results_v2"
 
 
 CLASSIFIERS_TO_ANALYZE = [
@@ -21,4 +21,17 @@ CLASSIFIERS_TO_ANALYZE = [
 
 
 # Set to None to include all datasets found in the results CSV.
-DATASETS_TO_ANALYZE = None
+DATASETS_TO_ANALYZE = [
+    "Computers",
+    "MiddlePhalanxOutlineCorrect",
+    "Worms",
+    #"EMOPain",
+    "EthanolLevel",
+    "Chinatown",
+    "ECG200",
+    "SwedishLeaf",
+    "SyntheticControl",
+    "Beef",
+    "Trace",
+    "TwoPatterns"
+]
